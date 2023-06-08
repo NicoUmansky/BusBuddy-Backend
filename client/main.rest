@@ -1,0 +1,7 @@
+GET http://localhost:3000/
+
+POST http://localhost:3000/user
+{
+    "title": "Note 1",
+    "content": "Content 1"
+}

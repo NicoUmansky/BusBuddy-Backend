@@ -1,0 +1,43 @@
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Usuarios {
+  id Int @id
+  nombreapellido String
+  email String
+  password String
+  @@map(name: "usuarios")
+}
+model Colectivo {
+      id Int @id
+      linea String
+      interno String
+      @@map(name: "colectivo")
+}
+model Paradas {
+        id Int @id
+        linea String
+        latitud String
+        longitud String
+        @@map(name: "paradas")
+}
+model Solicitudes {
+        id Int @id
+        id_usuario Int
+        id_linea Int
+        paradaDestino Int
+        paradaInicio Int
+        @@map(name: "solicitudes")
+}
+model Lineas {
+        id Int @id
+        linea String
+        @@map(name: "lineas")
+}
