@@ -32,3 +32,32 @@ Content-Type: application/json
 
 DELETE http://localhost:3000/user/5
 
+###
+
+GET http://localhost:3000/lineas
+
+###
+
+GET http://localhost:3000/lineas/2
+
+###
+
+POST http://localhost:3000/colectivos/2
+Content-Type: application/json
+
+{
+    "id_linea": 2,
+    "interno": "2921"
+}
+
+###
+
+POST http://localhost:3000/paradas/2
+Content-Type: application/json
+
+ {
+      "latitud": "-34.616193",
+      "longitud": "-58.382472",
+      "id_linea": 2,
+      "direccion": "Av. Congreso"
+ }

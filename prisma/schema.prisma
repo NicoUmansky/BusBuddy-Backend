@@ -24,11 +24,12 @@ model Colectivo {
 }
 
 model Paradas {
-  id       Int    @id @unique(map: "id") @default(autoincrement())
-  latitud  String
-  longitud String
-  id_linea Int
-  linea    Lineas @relation(fields: [id_linea], references: [id])
+  id        Int    @id @unique(map: "id") @default(autoincrement())
+  latitud   String
+  longitud  String
+  id_linea  Int
+  direccion String
+  linea     Lineas @relation(fields: [id_linea], references: [id])
 }
 
 model Solicitudes {
