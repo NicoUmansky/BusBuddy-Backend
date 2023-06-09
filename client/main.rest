@@ -1,7 +1,34 @@
-GET http://localhost:3000/
+# GET http://localhost:3000/
 
 POST http://localhost:3000/user
+Content-Type: application/json
+
 {
-    "title": "Note 1",
-    "content": "Content 1"
+    "nombreapellido": "Mica Cuan",
+    "email": "micucuan@gmail.com",
+    "password": "123456"
 }
+
+###
+
+GET http://localhost:3000/users
+
+###
+
+GET http://localhost:3000/user/2
+
+###
+
+PUT http://localhost:3000/user/5
+Content-Type: application/json
+
+{
+    "nombreapellido": "Micaela Cuan",
+    "email": "micucuan@gmail.com",
+    "password": "123456"
+}
+
+###
+
+DELETE http://localhost:3000/user/5
+
