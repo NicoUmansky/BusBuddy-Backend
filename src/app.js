@@ -32,7 +32,7 @@ app.get('/user/:id', async (req, res) => {
             id: parseInt(id)
         }
     });
-    res.json(user);
+    res.json("El usuario es: " + user.nombreapellido + ", con el ID: " + user.id + " y su email es: " + user.email);
 });
 
 app.put('/user/:id', async (req, res) => {
@@ -111,3 +111,5 @@ app.post('/paradas/:id', async(req, res) => {
     });
     res.json(parada);
 });
+
+module.exports = app;
