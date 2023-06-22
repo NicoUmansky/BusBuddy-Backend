@@ -1,6 +1,6 @@
-const { Prisma } = require('@prisma/client');
+// const { Prisma } = require('@prisma/client');
 const express = require('express');
-const mysql = require('mysql2')
+// const mysql = require('mysql2')
 
 const app = express();
 
