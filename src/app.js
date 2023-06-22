@@ -5,13 +5,13 @@ const mysql = require('mysql2')
 const app = express();
 
 require('dotenv').config()
- const connection = mysql.createConnection(process.env.DATABASE_URL)
+// const connection = mysql.createConnection(process.env.DATABASE_URL)
 // console.log('Connected to PlanetScale!')
 // connection.end()
 
-const { PrismaClient } = require('@prisma/client');
-const { parse } = require('dotenv');
-const prisma = new PrismaClient()
+// const { PrismaClient } = require('@prisma/client');
+// const { parse } = require('dotenv');
+// const prisma = new PrismaClient()
 
 app.use(express.json());
 
@@ -21,102 +21,103 @@ app.listen(3000, () => {
 
 // Rutas de usuarios
 app.get('/users', async(req, res) => {
-    const users = await prisma.Usuarios.findMany();
-    res.json({users});
+    // const users = await prisma.Usuarios.findMany();
+    // res.json({users});
+    res.send("Hola");
 });
 
-app.get('/user/:id', async (req, res) => {
-    const { id } = req.params;
-    const user = await prisma.Usuarios.findUnique({
-        where: {
-            id: parseInt(id)
-        }
-    });
-    res.json("El usuario es: " + user.nombreapellido + ", con el ID: " + user.id + " y su email es: " + user.email);
-});
+// app.get('/user/:id', async (req, res) => {
+//     const { id } = req.params;
+//     const user = await prisma.Usuarios.findUnique({
+//         where: {
+//             id: parseInt(id)
+//         }
+//     });
+//     res.json("El usuario es: " + user.nombreapellido + ", con el ID: " + user.id + " y su email es: " + user.email);
+// });
 
-app.put('/user/:id', async (req, res) => {
-    const { id } = req.params;
-    const user = await prisma.Usuarios.update({
-        where: {
-            id: parseInt(id)
-        },
-        data: req.body
-    });
-    res.json(user);
-});
+// app.put('/user/:id', async (req, res) => {
+//     const { id } = req.params;
+//     const user = await prisma.Usuarios.update({
+//         where: {
+//             id: parseInt(id)
+//         },
+//         data: req.body
+//     });
+//     res.json(user);
+// });
 
 
-app.post('/user', async (req, res) => {
-    const user = await prisma.Usuarios.create({
-        data: req.body
-    });
-    res.json(user);
-});
+// app.post('/user', async (req, res) => {
+//     const user = await prisma.Usuarios.create({
+//         data: req.body
+//     });
+//     res.json(user);
+// });
 
-app.delete('/user/:id', async (req, res) => {
-    const { id } = req.params;
-    const user = await prisma.Usuarios.delete({
-        where: {
-            id: parseInt(id)
-        }
-    });
-    res.send({msg: "User deleted successfully"});
-});
+// app.delete('/user/:id', async (req, res) => {
+//     const { id } = req.params;
+//     const user = await prisma.Usuarios.delete({
+//         where: {
+//             id: parseInt(id)
+//         }
+//     });
+//     res.send({msg: "User deleted successfully"});
+// });
 
-// Rutas de lineas
+// // Rutas de lineas
 
-app.get('/lineas', async(req, res) => {
-   try{
-    const lineas = await prisma.Lineas.findMany(
-        {
-            include: {
-                colectivos: true,
-            }
-        }
+// app.get('/lineas', async(req, res) => {
+//    try{
+//     const lineas = await prisma.Lineas.findMany(
+//         {
+//             include: {
+//                 colectivos: true,
+//             }
+//         }
         
-    );
-    res.json({lineas});
-   }
-    catch (err){
-        res.send(err.toString());
-    }
+//     );
+//     res.json({lineas});
+//    }
+//     catch (err){
+//         res.send(err.toString());
+//     }
     
     
-});
+// });
 
-app.get('/lineas/:id', async (req, res) => {
-    const { id } = req.params;
-    const linea = await prisma.Lineas.findUnique({
-        where: {
-            id: parseInt(id)
-        },
-        include: {
-            colectivos: true,
-            paradas: true,
-        }
-    });
-    res.json(linea);
-});
+// app.get('/lineas/:id', async (req, res) => {
+//     const { id } = req.params;
+//     const linea = await prisma.Lineas.findUnique({
+//         where: {
+//             id: parseInt(id)
+//         },
+//         include: {
+//             colectivos: true,
+//             paradas: true,
+//         }
+//     });
+//     res.json(linea);
+// });
 
-// Rutas de Colectivos
+// // Rutas de Colectivos
 
-app.post('/colectivos/:id', async(req, res) => {
-    const { id } = req.params;
-    const parada = await prisma.Colectivo.create({
-        data: req.body,
-    });
-    res.json(parada);
-});
+// app.post('/colectivos/:id', async(req, res) => {
+//     const { id } = req.params;
+//     const parada = await prisma.Colectivo.create({
+//         data: req.body,
+//     });
+//     res.json(parada);
+// });
 
-// Rutas de Paradas
+// // Rutas de Paradas
 
-app.post('/paradas/:id', async(req, res) => {
-    const { id } = req.params;
-    const parada = await prisma.Paradas.create({
-        data: req.body,
-    });
-    res.json(parada);
-});
+// app.post('/paradas/:id', async(req, res) => {
+//     const { id } = req.params;
+//     const parada = await prisma.Paradas.create({
+//         data: req.body,
+//     });
+//     res.json(parada);
+// });
 
 module.exports = app;
