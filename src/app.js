@@ -67,15 +67,22 @@ app.delete('/user/:id', async (req, res) => {
 // Rutas de lineas
 
 app.get('/lineas', async(req, res) => {
+   try{
     const lineas = await prisma.Lineas.findMany(
         {
             include: {
                 colectivos: true,
             }
         }
+        
     );
-    
     res.json({lineas});
+   }
+    catch (err){
+        res.send(err.toString());
+    }
+    
+    
 });
 
 app.get('/lineas/:id', async (req, res) => {
