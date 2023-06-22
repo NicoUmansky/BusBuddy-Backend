@@ -16,10 +16,7 @@
     "functions": {
       "api/*": {
         "memory": 1024,
-        "maxDuration": 10,
-        "body_parser": {
-          "sizeLimit": "100mb"
-        }
+        "maxDuration": 10
       }
     }
   }
