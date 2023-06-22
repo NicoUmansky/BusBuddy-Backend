@@ -14,9 +14,15 @@ const { parse } = require('dotenv');
 const prisma = new PrismaClient()
 
 app.use(express.json());
+app.use(function(req, res, next) {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader('Access-Control-Allow-Methods', 'POST,GET,OPTIONS,PUT,DELETE');
+    res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });
 
-app.listen(3000, () => {
-    console.log('Server is running on port 3000');
+app.listen(3001, () => {
+    console.log('Server is running on port 3001');
 });
 
 // Rutas de usuarios
@@ -33,6 +39,7 @@ app.get('/user/:id', async (req, res) => {
         }
     });
     res.json(user);
+    
 });
 
 app.put('/user/:id', async (req, res) => {
@@ -111,3 +118,5 @@ app.post('/paradas/:id', async(req, res) => {
     });
     res.json(parada);
 });
+
+module.exports = app;
