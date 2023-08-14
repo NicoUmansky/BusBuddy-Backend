@@ -6,7 +6,7 @@ require('browser-env')(['window', 'document', 'navigator']);
 
 
 const connection = mysql.createConnection(process.env.DATABASE_URL)
-// console.log('Connected to PlanetScale!')
+console.log('Connected to PlanetScale!')
 // connection.end()
 
 const { PrismaClient } = require('@prisma/client');
