@@ -1,7 +1,7 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient()
 const express = require('express');
-const mysql = require('mysql2')
+const mysql = require('mysql')
 
 const app = express();
 const connection = mysql.createConnection(process.env.DATABASE_URL)
