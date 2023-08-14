@@ -19,6 +19,9 @@ app.listen(3001, () => {
     console.log('Server is running on port 3001');
 });
 
+app.get('/', (req, res) => {
+    res.send('Welcome to BusBuddy API!');
+});
 // Rutas de usuarios
 app.get('/users', async(req, res) => {
     const users = await prisma.Usuarios.findMany();
