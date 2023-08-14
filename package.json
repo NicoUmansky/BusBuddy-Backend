@@ -2,9 +2,9 @@
   "name": "busbuddy---backend",
   "version": "1.0.0",
   "description": "",
-  "main": "src/app.js",
+  "main": "src/index.js",
   "scripts": {
-    "dev": "npx nodemon app.js"
+    "dev": "npx nodemon index.js"
   },
   "keywords": [],
   "author": "",
