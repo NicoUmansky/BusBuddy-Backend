@@ -18,6 +18,7 @@
     "google": "^2.1.0",
     "google-maps": "^4.3.3",
     "google-maps-react": "^2.0.6",
+    "mysql": "^2.18.1",
     "mysql2": "^3.3.3",
     "prisma": "^4.16.1",
     "studio": "^0.13.5",
