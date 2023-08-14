@@ -4,6 +4,9 @@ const express = require('express');
 const mysql = require('mysql2')
 
 const app = express();
+const connection = mysql.createConnection(process.env.DATABASE_URL)
+console.log('Connected to PlanetScale!')
+
 const {getUser, getLocation, createUser, getRequest, createRequest} = require('./database.js')
 require('dotenv').config()
 
