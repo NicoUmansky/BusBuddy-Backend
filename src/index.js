@@ -198,7 +198,7 @@ async function addParadas(direccion, latitude, longitude, id_linea){
 
 // addParadas("2833 RIVADAVIA AV.",-34.610177,-58.406543,2);
 
-app.get('/paradas', async(req, res) => {
+app.get('/GetParadas', async(req, res) => {
     var resumen = [];
     const paradas = getParadas().then((paradas) => {
     // resumen.push(paradas);
