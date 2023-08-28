@@ -198,11 +198,33 @@ async function addParadas(direccion, latitude, longitude, id_linea){
 
 // addParadas("2833 RIVADAVIA AV.",-34.610177,-58.406543,2);
 
-app.get('/paradas/', async(req, res) => {
-    const parada = await prisma.Paradas.findMany();
-    res.json(parada);
+app.get('/paradas', async(req, res) => {
+    var resumen = [];
+    const paradas = getParadas().then((paradas) => {
+    // resumen.push(paradas);
+    res.json(paradas);
+    });
+    
 });
 
+
+async function getParadas(){
+    var IDParada = [];
+    const parada = await prisma.Paradas.findMany();
+    parada.forEach(function(value, index, array){
+    IDParada.push(value.id);
+    });
+    const randomIndex = Math.floor(Math.random() * IDParada.length);
+    var paradaInicio = IDParada[randomIndex];
+    var paradaFin = IDParada[randomIndex + 3];
+    if (paradaFin == undefined){
+        paradaFin = IDParada[randomIndex - 3];
+    }
+    // console.log(paradaInicio + " " + paradaFin);
+    return [paradaInicio, paradaFin];
+}
+getParadas();
+ 
 app.get('/paradas/:id_linea', async(req, res) => {
     const { id_linea } = req.params;
     const parada = await prisma.Paradas.findMany({
