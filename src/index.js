@@ -7,7 +7,7 @@ const app = express();
 const connection = mysql.createConnection(process.env.DATABASE_URL)
 console.log('Connected to PlanetScale!')
 
-const {getUser, getLocation, createUser, getRequest, createRequest} = require('./database.js')
+const {getUser, getLocation, createUser, getRequest, createRequest, CheckDistance} = require('./database.js')
 require('dotenv').config()
 
 app.use(express.json());
@@ -225,6 +225,25 @@ async function getParadas(){
 }
 getParadas();
  
+app.get('/CheckDistance/:lat/:long', async(req, res) => {
+    const { lat, long } = req.params;
+
+    try {
+    const closestCoord = await CheckDistance(parseFloat(lat), parseFloat(long));
+    if (closestCoord) {
+      console.log("La parada más cercana a "+String(lat)+", "+String(long)+" es: " + String(closestCoord));
+        res.json(closestCoord);
+    } else {
+      console.log("No se pudo encontrar la parada más cercana.");
+    }
+  } catch (error) {
+    console.error("Error al buscar la parada más cercana:", error);
+    console.log("Ocurrió un error al buscar la parada más cercana.");
+  }
+    }
+);
+
+
 app.get('/paradas/:id_linea', async(req, res) => {
     const { id_linea } = req.params;
     const parada = await prisma.Paradas.findMany({
