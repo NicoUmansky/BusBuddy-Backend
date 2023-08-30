@@ -225,8 +225,9 @@ async function getParadas(){
 }
 getParadas();
  
-app.get('/CheckDistance/:lat/:long', async(req, res) => {
-    const { lat, long } = req.params;
+app.post('/CheckDistance', async(req, res) => {
+    const { lat, long } = req.body;
+    
 
     try {
     const closestCoord = await CheckDistance(parseFloat(lat), parseFloat(long));
