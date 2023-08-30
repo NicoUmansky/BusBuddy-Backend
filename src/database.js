@@ -67,12 +67,27 @@ async function CheckDistance(lat, long) {
       }
   
       console.log("La coordenada más cercana es:", closestCoord);
+      getIndexStop(closestCoord);
       return closestCoord;
     } catch (error) {
       console.error("Error al obtener coordenadas:", error);
       return null;
     }
   }
+
+async function getIndexStop(closestCoord){
+    const index = await prisma.Paradas.findUnique({
+        where: {
+            latitud: String(closestCoord[0]),
+            longitud: String(closestCoord[1])
+        },        
+        select: {
+            id: true
+        }
+        });
+    console.log(index[0])
+    return index[0]
+}
 
 async function createUser(user){
     try{
