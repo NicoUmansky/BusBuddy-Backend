@@ -76,17 +76,25 @@ async function CheckDistance(lat, long) {
   }
 
 async function getIndexStop(closestCoord){
-    const index = await prisma.Paradas.findUnique({
+    var lat = String(closestCoord[0]);
+    var long = String(closestCoord[1]);
+    while(lat.length < 10){
+        lat = lat + "0";
+    }
+    while(long.length < 10){
+        long = long + "0";
+    }
+    const index = await prisma.Paradas.findFirst({
         where: {
-            latitud: String(closestCoord[0]),
-            longitud: String(closestCoord[1])
+            latitud: lat,
+            longitud: long
         },        
         select: {
             id: true
         }
         });
-    console.log(index[0])
-    return index[0]
+    console.log(index)
+    return 
 }
 
 async function createUser(user){
