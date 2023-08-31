@@ -173,4 +173,4 @@ async function createRequest(request){
 
 
 
-module.exports = { getUser, createUser, getRequest, createRequest, CheckDistance}
+module.exports = { getUser, createUser, getRequest, createRequest, CheckDistance, getIndexStop, UpdateNotification, CheckNextStop}

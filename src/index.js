@@ -7,7 +7,7 @@ const app = express();
 const connection = mysql.createConnection(process.env.DATABASE_URL)
 console.log('Connected to PlanetScale!')
 
-const {getUser, getLocation, createUser, getRequest, createRequest, CheckDistance} = require('./database.js')
+const {getUser, getLocation, createUser, getRequest, createRequest, CheckDistance, getIndexStop, UpdateNotification, CheckNextStop} = require('./database.js')
 require('dotenv').config()
 
 app.use(express.json());
