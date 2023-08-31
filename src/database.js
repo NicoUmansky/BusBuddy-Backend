@@ -65,9 +65,7 @@ async function CheckDistance(lat, long) {
           closestCoord = [coordLat, coordLong];
         }
       }
-  
-      console.log("La coordenada más cercana es:", closestCoord);
-      getIndexStop(closestCoord);
+        getIndexStop(closestCoord);
       return closestCoord;
     } catch (error) {
       console.error("Error al obtener coordenadas:", error);
@@ -94,9 +92,46 @@ async function getIndexStop(closestCoord){
         }
         });
     console.log(index)
-    return 
+    console.log(await CheckNextStop(index.id));
+
+    return index
 }
 
+async function CheckNextStop(id){
+    nextStop = parseInt(id) + 1;
+    if(nextStop > 29){
+        nextStop = parseInt(id) - 1;
+    }
+    const search = await prisma.Solicitudes.findFirst({
+        where: {
+            paradaInicio: nextStop,
+        },
+        select: {
+            id: true,
+            paradaInicio: true,
+        }
+    });
+    if (search){
+        console.log("Hay una solicitud ("+search.id+") en la parada siguiente: " + search.paradaInicio);
+        const update = await UpdateNotification("3056");
+        return true
+    }
+    else{
+        return false
+    }
+}
+
+async function UpdateNotification(interno){
+    const update = await prisma.colectivo.update({
+        where: {
+            interno: interno
+        },
+        data: {
+            notificar: 1,
+        }
+    });
+    console.log(update);
+}
 async function createUser(user){
     try{
     const newUser = await prisma.Usuarios.create({
