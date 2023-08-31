@@ -226,13 +226,13 @@ async function getParadas(){
 getParadas();
  
 app.post('/CheckDistance', async(req, res) => {
-    const { lat, long } = req.body;
+    const { lati, longi } = req.body;
     
 
     try {
-    const closestCoord = await CheckDistance(parseFloat(lat), parseFloat(long));
+    const closestCoord = await CheckDistance(parseFloat(lati), parseFloat(longi));
     if (closestCoord) {
-        console.log("La parada más cercana a "+String(lat)+", "+String(long)+" es: " + String(closestCoord));
+        console.log("La parada más cercana a "+String(lati)+", "+String(longi)+" es: " + String(closestCoord));
         res.json(closestCoord);
     } else {
       console.log("No se pudo encontrar la parada más cercana.");
