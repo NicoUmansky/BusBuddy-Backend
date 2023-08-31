@@ -51,8 +51,8 @@ async function CheckDistance(lati, longi) {
         return distance;
         };
   
-      const targetLat = parseFloat(lat);
-      const targetLong = parseFloat(long);
+      const targetLat = parseFloat(lati);
+      const targetLong = parseFloat(longi);
   
       let closestCoord = null;
       let closestDistance = Infinity;
