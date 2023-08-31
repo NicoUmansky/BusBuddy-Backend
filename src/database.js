@@ -65,7 +65,7 @@ async function CheckDistance(lati, longi) {
           closestCoord = [coordLat, coordLong];
         }
       }
-        getIndexStop(closestCoord);
+       await getIndexStop(closestCoord);
       return closestCoord;
     } catch (error) {
       console.error("Error al obtener coordenadas:", error);
