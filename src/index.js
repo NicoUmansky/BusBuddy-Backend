@@ -232,7 +232,7 @@ app.post('/CheckDistance', async(req, res) => {
     try {
     const closestCoord = await CheckDistance(parseFloat(lat), parseFloat(long));
     if (closestCoord) {
-      console.log("La parada más cercana a "+String(lat)+", "+String(long)+" es: " + String(closestCoord));
+        console.log("La parada más cercana a "+String(lat)+", "+String(long)+" es: " + String(closestCoord));
         res.json(closestCoord);
     } else {
       console.log("No se pudo encontrar la parada más cercana.");

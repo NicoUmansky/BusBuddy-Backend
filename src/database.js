@@ -25,7 +25,7 @@ async function getUser(id){
 }
 
 
-async function CheckDistance(lat, long) {
+async function CheckDistance(lati, longi) {
     try {
       const response = await fetch("https://breakable-turtleneck-shirt-foal.cyclic.app/paradas/2", {
         method: "GET",
