@@ -26,10 +26,10 @@ app.get('/', (req, res) => {
     res.send('Welcome to BusBuddy API!');
 });
 // Rutas de usuarios
-app.get('/users', async(req, res) => {
-    const users = await prisma.Usuarios.findMany();
-    res.json({users});
-});
+// app.get('/users', async(req, res) => {
+//     const users = await prisma.Usuarios.findMany();
+//     res.json({users});
+// });
 
 app.post('/FindUser', async (req, res) => {
     const { email, password } = req.body;
@@ -227,8 +227,6 @@ getParadas();
  
 app.post('/CheckDistance', async(req, res) => {
     const { lati, longi } = req.body;
-    
-
     try {
     const closestCoord = await CheckDistance(parseFloat(lati), parseFloat(longi));
     if (closestCoord) {
@@ -243,6 +241,8 @@ app.post('/CheckDistance', async(req, res) => {
   }
     }
 );
+
+
 
 
 app.get('/paradas/:id_linea', async(req, res) => {

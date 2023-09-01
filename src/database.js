@@ -66,7 +66,7 @@ async function CheckDistance(lati, longi) {
         }
       }
        await getIndexStop(closestCoord);
-      return closestCoord;
+       return closestCoord;
     } catch (error) {
       console.error("Error al obtener coordenadas:", error);
       return null;
@@ -132,6 +132,7 @@ async function UpdateNotification(interno){
     });
     console.log(update);
 }
+
 async function createUser(user){
     try{
     const newUser = await prisma.Usuarios.create({
