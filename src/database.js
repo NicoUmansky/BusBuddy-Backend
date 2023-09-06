@@ -113,7 +113,7 @@ async function CheckNextStop(id){
     });
     if (search){
         console.log("Hay una solicitud ("+search.id+") en la parada siguiente: " + search.paradaInicio);
-        const update = await UpdateNotification("3056");
+        const update = await UpdateNotification("3056", search.paradaInicio);
         return true
     }
     else{
@@ -121,13 +121,14 @@ async function CheckNextStop(id){
     }
 }
 
-async function UpdateNotification(interno){
+async function UpdateNotification(interno, stop){
     const update = await prisma.colectivo.update({
         where: {
             interno: interno
         },
         data: {
             notificar: 1,
+            paradaSolicitada: stop
         }
     });
     console.log(update);

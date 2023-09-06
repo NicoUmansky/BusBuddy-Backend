@@ -92,3 +92,14 @@ Content-Type: application/json
 ###
 
 GET http://localhost:3001/solicitudes/2
+
+###
+
+POST http://localhost:3001/CheckDistance
+Content-Type: application/json
+
+{
+    "lati": -34.596325,
+    "longi": -58.403065
+
+}
