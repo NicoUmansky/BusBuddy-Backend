@@ -237,7 +237,6 @@ app.post('/CheckDistance', async(req, res) => {
     }
   } catch (error) {
     console.error("Error al buscar la parada más cercana:", error);
-    console.log("Ocurrió un error al buscar la parada más cercana.");
   }
     }
 );
