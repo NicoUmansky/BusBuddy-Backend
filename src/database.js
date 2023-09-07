@@ -128,7 +128,7 @@ async function UpdateNotification(interno, stop){
         },
         data: {
             notificar: 1,
-            paradaSolicitada: stop
+            paradaSolicitada: parseInt(stop)
         }
     });
     console.log(update);
