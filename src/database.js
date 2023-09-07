@@ -25,6 +25,115 @@ async function getUser(id){
 }
 
 
+// async function CheckDistance(lati, longi) {
+//     try {
+//       const response = await fetch("https://breakable-turtleneck-shirt-foal.cyclic.app/paradas/2", {
+//         method: "GET",
+//         headers: {
+//           Accept: "application/json, text/plain, */*",
+//           "Content-Type": "application/json"
+//         }
+//       });
+      
+//       const data = await response.json();
+//       const AllCoords = data.map(parada => [parseFloat(parada.latitud), parseFloat(parada.longitud)]);
+  
+//       const calculateDistance = (lat1, lon1, lat2, lon2) => {
+//         const R = 6371; // Radio de la Tierra en kilómetros
+//         const dLat = (lat2 - lat1) * (Math.PI / 180);
+//         const dLon = (lon2 - lon1) * (Math.PI / 180);
+        
+//         const a =
+//           Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+//           Math.cos(lat1 * (Math.PI / 180)) * Math.cos(lat2 * (Math.PI / 180)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+//         const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+//         const distance = R * c;
+//         return distance;
+//         };
+  
+//       const targetLat = parseFloat(lati);
+//       const targetLong = parseFloat(longi);
+  
+//       let closestCoord = null;
+//       let closestDistance = Infinity;
+  
+//       for (const [coordLat, coordLong] of AllCoords) {
+//         const distance = calculateDistance(targetLat, targetLong, coordLat, coordLong);
+  
+//         if (distance < closestDistance) {
+//           closestDistance = distance;
+//           closestCoord = [coordLat, coordLong];
+//         }
+//       }
+//        await getIndexStop(closestCoord);
+//        return closestCoord;
+//     } catch (error) {
+//       console.error("Error al obtener coordenadas:", error);
+//       return null;
+//     }
+//   }
+
+// async function getIndexStop(closestCoord){
+//     var lat = String(closestCoord[0]);
+//     var long = String(closestCoord[1]);
+//     while(lat.length < 10){
+//         lat = lat + "0";
+//     }
+//     while(long.length < 10){
+//         long = long + "0";
+//     }
+//     const index = await prisma.Paradas.findFirst({
+//         where: {
+//             latitud: lat,
+//             longitud: long
+//         },        
+//         select: {
+//             id: true
+//         }
+//         });
+//     console.log(index)
+//     console.log(await CheckNextStop(index.id));
+
+//     return index
+// }
+
+// async function CheckNextStop(id){
+//     nextStop = parseInt(id) + 1;
+//     if(nextStop > 29){
+//         nextStop = parseInt(id) - 1;
+//     }
+//     const search = await prisma.Solicitudes.findFirst({
+//         where: {
+//             paradaInicio: nextStop,
+//         },
+//         select: {
+//             id: true,
+//             paradaInicio: true,
+//         }
+//     });
+//     if (search){
+//         console.log("Hay una solicitud ("+search.id+") en la parada siguiente: " + search.paradaInicio);
+//         const update = await UpdateNotification("3056");
+//         return true
+//     }
+//     else{
+//         return false
+//     }
+// }
+
+// async function UpdateNotification(interno){
+//     const update = await prisma.colectivo.update({
+//         where: {
+//             interno: interno
+//         },
+//         data: {
+//             notificar: 1,
+//         }
+//     });
+//     console.log(update);
+// }
+
+
 async function CheckDistance(lati, longi) {
     try {
       const response = await fetch("https://breakable-turtleneck-shirt-foal.cyclic.app/paradas/2", {
@@ -65,8 +174,8 @@ async function CheckDistance(lati, longi) {
           closestCoord = [coordLat, coordLong];
         }
       }
-       await getIndexStop(closestCoord);
-       return closestCoord;
+       const IndexStop = await getIndexStop(closestCoord);
+       return IndexStop;
     } catch (error) {
       console.error("Error al obtener coordenadas:", error);
       return null;
@@ -91,10 +200,9 @@ async function getIndexStop(closestCoord){
             id: true
         }
         });
-    console.log(index)
-    console.log(await CheckNextStop(index.id));
+    FindNextStop = await CheckNextStop(index.id);
+    return FindNextStop
 
-    return index
 }
 
 async function CheckNextStop(id){
@@ -111,27 +219,45 @@ async function CheckNextStop(id){
             paradaInicio: true,
         }
     });
+    var sumar = true;
     if (search){
         console.log("Hay una solicitud ("+search.id+") en la parada siguiente: " + search.paradaInicio);
-        const update = await UpdateNotification("3056", search.paradaInicio);
-        return true
+        const update = await UpdateNotification("3056", search.paradaInicio, sumar);
+        return 1
     }
     else{
-        return false
+        sumar = false;
+        const update = await UpdateNotification("3056", 0, sumar);
+        return 0
     }
 }
 
-async function UpdateNotification(interno, stop){
+// SI SUMAR ES TRUE, SUMA UNO A LA NOTIFICACION, SI ES FALSE, LA PONE EN 0
+async function UpdateNotification(interno, stop, sumar){
+    if(sumar){
     const update = await prisma.colectivo.update({
         where: {
             interno: interno
         },
         data: {
             notificar: 1,
-            paradaSolicitada: parseInt(stop)
+            paradaSolicitada: stop,
         }
     });
     console.log(update);
+}
+else{
+    const update = await prisma.colectivo.update({
+        where: {
+            interno: interno
+        },
+        data: {
+            notificar: 0,
+            paradaSolicitada: 0,
+        }
+    });
+    console.log(update);
+}
 }
 
 async function createUser(user){

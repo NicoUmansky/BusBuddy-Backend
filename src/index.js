@@ -228,12 +228,11 @@ getParadas();
 app.post('/CheckDistance', async(req, res) => {
     const { lati, longi } = req.body;
     try {
-    const closestCoord = await CheckDistance(parseFloat(lati), parseFloat(longi));
-    if (closestCoord) {
-        console.log("La parada más cercana a "+String(lati)+", "+String(longi)+" es: " + String(closestCoord));
-        res.json(closestCoord);
+    const BusNoti = await CheckDistance(parseFloat(lati), parseFloat(longi));
+    if (BusNoti) {
+        res.json(BusNoti);
     } else {
-      console.log("No se pudo encontrar la parada más cercana.");
+        res.json(BusNoti);
     }
   } catch (error) {
     console.error("Error al buscar la parada más cercana:", error);
