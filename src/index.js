@@ -256,7 +256,7 @@ app.get('/paradas/:id_linea', async(req, res) => {
 
 // Rutas de solicitudes
 
-app.post('/CrearSolicitud/', async(req, res) => {
+app.post('/CreateSolicitud/', async(req, res) => {
     const solicitud = await prisma.Solicitudes.create({
         data: req.body,
     });
