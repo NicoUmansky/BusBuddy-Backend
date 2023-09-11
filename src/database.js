@@ -149,6 +149,17 @@ else{
 }
 }
 
+async function CancelRequest(id, interno, paradaInicio){
+    const deleteRequest = await prisma.Solicitudes.delete({
+        where: {
+            id: parseInt(id)
+        }
+    });
+    const update = await UpdateNotification(interno, paradaInicio, false);
+    return deleteRequest
+}
+
+
 async function createUser(user){
     try{
     const newUser = await prisma.Usuarios.create({
@@ -190,4 +201,4 @@ async function createRequest(request){
 
 
 
-module.exports = { getUser, createUser, getRequest, createRequest, CheckDistance, getIndexStop, UpdateNotification, CheckNextStop}
+module.exports = { getUser, createUser, getRequest, createRequest, CheckDistance, getIndexStop, UpdateNotification, CheckNextStop, CancelRequest}

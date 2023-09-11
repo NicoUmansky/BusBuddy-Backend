@@ -7,7 +7,7 @@ const app = express();
 const connection = mysql.createConnection(process.env.DATABASE_URL)
 console.log('Connected to PlanetScale!')
 
-const {getUser, getLocation, createUser, getRequest, createRequest, CheckDistance, getIndexStop, UpdateNotification, CheckNextStop} = require('./database.js')
+const {getUser, getLocation, createUser, getRequest, createRequest, CheckDistance, getIndexStop, UpdateNotification, CheckNextStop, CancelRequest} = require('./database.js')
 require('dotenv').config()
 
 app.use(express.json());
@@ -240,8 +240,21 @@ app.post('/CheckDistance', async(req, res) => {
     }
 );
 
-
-
+app.post('/DeleteSolicitud', async(req, res) => {
+    const { id, interno, paradaInicio } = req.body;
+    try {
+        const deleteRequest = await CancelRequest(id, interno, paradaInicio);
+        if (deleteRequest) {
+            res.json(deleteRequest);
+        } else {
+            res.json(deleteRequest);
+        }
+        } catch (error) {
+            console.error("Error al eliminar la solicitud:", error);
+        }
+}
+);
+    
 
 app.get('/paradas/:id_linea', async(req, res) => {
     const { id_linea } = req.params;
