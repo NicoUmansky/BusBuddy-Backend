@@ -149,13 +149,12 @@ else{
 }
 }
 
-async function CancelRequest(id, interno, paradaInicio){
+async function CancelRequest(id){
     const deleteRequest = await prisma.Solicitudes.delete({
         where: {
             id: parseInt(id)
         }
     });
-    const update = await UpdateNotification(interno, paradaInicio, false);
     return deleteRequest
 }
 

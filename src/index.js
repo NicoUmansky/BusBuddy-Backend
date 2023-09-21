@@ -241,14 +241,12 @@ app.post('/CheckDistance', async(req, res) => {
 );
 
 app.post('/DeleteSolicitud', async(req, res) => {
-    const { id, interno, paradaInicio } = req.body;
+    const { id} = req.body;
     try {
-        const deleteRequest = await CancelRequest(id, interno, paradaInicio);
+        const deleteRequest = await CancelRequest(id);
         if (deleteRequest) {
             res.json(deleteRequest);
-        } else {
-            res.json(deleteRequest);
-        }
+        } 
         } catch (error) {
             console.error("Error al eliminar la solicitud:", error);
         }
