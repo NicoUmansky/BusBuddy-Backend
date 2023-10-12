@@ -108,6 +108,16 @@ async function CheckNextStop(id){
             paradaInicio: true,
         }
     });
+    const search2 = await prisma.Solicitudes.findFirst({
+        where: {
+            paradaDestino: nextStop,
+        },
+        select: {
+            id: true,
+            paradaDestino: true,
+        }
+    });
+
     var sumar = true;
     if (search){
         console.log("Hay una solicitud ("+search.id+") en la parada siguiente: " + search.paradaInicio);
@@ -119,6 +129,14 @@ async function CheckNextStop(id){
         const update = await UpdateNotification("3056", 0, sumar);
         return 0
     }
+    if (search2){
+        console.log("El usuario con el id "+search2.id_usuario+" solicito bajarse en la parada siguiente: " + search2.paradaDestino);
+    }
+    else{
+        console.log("No hay solicitudes para bajarse en la parada siguiente");
+    }
+
+
 }
 
 // SI SUMAR ES TRUE, SUMA UNO A LA NOTIFICACION, SI ES FALSE, LA PONE EN 0
