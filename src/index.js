@@ -271,6 +271,15 @@ app.post('/CreateSolicitud/', async(req, res) => {
     const solicitud = await prisma.Solicitudes.create({
         data: req.body,
     });
+    const update = await prisma.Usuarios.update({
+        where: {
+            id: parseInt(solicitud.id_usuario)
+        },
+        data: {
+            bajarse: 0,
+        }
+    });
+    console.log(update)
     res.json(solicitud.id);
 });
 

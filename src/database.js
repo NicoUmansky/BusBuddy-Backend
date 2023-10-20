@@ -13,6 +13,8 @@ console.log('Connected to PlanetScale!')
 
 const { PrismaClient } = require('@prisma/client');
 const { parse } = require('dotenv');
+const e = require('express');
+const { get } = require('.');
 const prisma = new PrismaClient()
 
 async function getUser(id){
@@ -109,6 +111,47 @@ async function CheckNextStop(id){
         }
     });
     var sumar = true;
+ 
+
+    const destination = await prisma.Solicitudes.findMany({
+        where: {
+            paradaDestino: nextStop,
+        },
+        select: {
+            id: true,
+            id_usuario: true,
+            paradaDestino: true,
+        }
+    });
+    if (destination.length > 0){
+        destination.forEach(element => {
+            console.log("El usuario "+ element.id_usuario + " tiene que bajarse en la siguiente parada (" + element.paradaDestino + ")");
+                UpdateBajarse(element.id_usuario);
+            });
+
+            async function UpdateBajarse(id){
+                const update = await prisma.Usuarios.update({
+                    where: {
+                        id: parseInt(id)
+                    },
+                    data: {
+                        bajarse: 1,
+                    }
+                });
+                console.log(update);
+            }
+            const left = await prisma.Solicitudes.deleteMany({
+                where: {
+                    paradaDestino: nextStop,
+                }
+            });
+            console.log("Se bajaron todos los pasajeros en la parada " + nextStop);
+
+        }
+    
+    else{
+        console.log("No se baja nadie en la parada " + nextStop)
+    }   
     if (search){
         console.log("Hay una solicitud ("+search.id+") en la parada siguiente: " + search.paradaInicio);
         const update = await UpdateNotification("3056", search.paradaInicio, sumar);
@@ -133,7 +176,7 @@ async function UpdateNotification(interno, stop, sumar){
             paradaSolicitada: stop,
         }
     });
-    console.log(update);
+    // console.log(update);
 }
 else{
     const update = await prisma.colectivo.update({
@@ -145,7 +188,7 @@ else{
             paradaSolicitada: 0,
         }
     });
-    console.log(update);
+    // console.log(update);
 }
 }
 
