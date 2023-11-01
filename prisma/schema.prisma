@@ -61,6 +61,7 @@ model Solicitudes {
 model Favoritos {
   id               Int    @unique(map: "id") @default(autoincrement())
   id_usuario       Int    @default(0)
+  nombre           String
   direccionOrigen  String
   direccionDestino String
 

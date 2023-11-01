@@ -296,10 +296,11 @@ app.get('/solicitudes/:id', async(req, res) => {
 });
 
 app.post('/AddFavorite', async(req, res) => {
-    const { id_usuario, direccionOrigen, direccionDestino } = req.body;
+    const { id_usuario, direccionOrigen, direccionDestino, nombre } = req.body;
     const solicitud = await prisma.Favoritos.create({
         data: {
             id_usuario: parseInt(id_usuario),
+            nombre: nombre,
             direccionOrigen: direccionOrigen,
             direccionDestino: direccionDestino
         },
