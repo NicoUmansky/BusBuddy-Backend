@@ -295,4 +295,35 @@ app.get('/solicitudes/:id', async(req, res) => {
 })
 });
 
+app.post('/AddFavorite', async(req, res) => {
+    const { id_usuario, direccionOrigen, direccionDestino } = req.body;
+    const solicitud = await prisma.Favoritos.create({
+        data: {
+            id_usuario: parseInt(id_usuario),
+            direccionOrigen: direccionOrigen,
+            direccionDestino: direccionDestino
+        },
+    });
+    res.json(solicitud);
+}
+
+);
+
+app.post('/GetFavorite', async(req, res) => {
+    const { id_usuario } = req.body;
+    const solicitud = await prisma.Favoritos.findMany({
+        where: {
+            id_usuario: parseInt(id_usuario)
+        }
+    });
+    res.json(solicitud);
+}
+
+);
+
+app.get('/AllStops', async(req,res) => {
+    const stops = await prisma.Paradas.findMany();
+    res.json(stops);
+})
+
 module.exports = app;

@@ -14,7 +14,7 @@ model Usuarios {
   nombreapellido String
   email          String        @unique
   password       String
-  bajarse        Int       @default(0)
+  bajarse        Int           @default(0)
   solicitudes    Solicitudes[]
 }
 
@@ -56,6 +56,15 @@ model Solicitudes {
   @@index([paradaInicio], map: "parada")
   @@index([id_usuario], map: "usuario")
   @@index([id_linea], map: "linea")
+}
+
+model Favoritos {
+  id               Int    @unique(map: "id") @default(autoincrement())
+  id_usuario       Int    @default(0)
+  direccionOrigen  String
+  direccionDestino String
+
+  @@index([id_usuario], map: "usuario")
 }
 
 model Lineas {
