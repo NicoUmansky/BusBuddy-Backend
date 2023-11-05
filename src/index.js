@@ -317,7 +317,12 @@ app.post('/GetFavorite', async(req, res) => {
             id_usuario: parseInt(id_usuario)
         }
     });
-    res.json(solicitud);
+    if(solicitud){
+        res.json(solicitud);
+    }
+    else{
+        res.json(null);
+    }
 }
 
 );
