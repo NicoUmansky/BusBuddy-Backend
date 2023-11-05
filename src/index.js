@@ -324,8 +324,19 @@ app.post('/GetFavorite', async(req, res) => {
         res.json(null);
     }
 }
-
 );
+
+app.post('/DeleteFavorite', async(req, res) => {
+    const { id } = req.body;
+    const solicitud = await prisma.Favoritos.delete({
+        where: {
+            id: parseInt(id)
+        }
+    });
+    res.json(solicitud);
+}
+);
+
 
 app.get('/AllStops', async(req,res) => {
     const stops = await prisma.Paradas.findMany();
