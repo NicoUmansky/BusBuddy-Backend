@@ -62,7 +62,13 @@ app.post('/FindUser', async (req, res) => {
 app.get('/user/:id', async (req, res) => {
     const  id = req.params.id;
     const user = getUser(id).then((user) => {
-        res.json(user);
+        if(user){
+            res.json(user);
+        }
+        else{
+            res.json(null);
+        
+}   
 })
 });
 
