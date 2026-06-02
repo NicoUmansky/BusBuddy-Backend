@@ -97,7 +97,3 @@ Estas deben configurarse en un archivo `.env` antes de levantar el servidor.
 ## Nota sobre el proyecto
 
 BusBuddy está orientado a mejorar la accesibilidad en el transporte público. El backend cumple un rol central, ya que conecta la información del usuario con las paradas, las líneas y las notificaciones necesarias para acompañar el trayecto.
-
----
-
-Si querés, también puedo dejar el README más “profesional” y completo, con secciones de **instalación**, **variables de entorno**, **endpoints detallados** y **ejemplos de uso**.
